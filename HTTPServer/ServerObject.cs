@@ -26,8 +26,19 @@ namespace HTTPServer
             listener.Start();
             Console.WriteLine("Server start..");
 
-            HttpListenerContext context = await listener.GetContextAsync();
-            ProcessRequest(context);
+            while (true)
+            {
+                HttpListenerContext listenerContext = await listener.GetContextAsync();
+                if (listenerContext.Request.IsWebSocketRequest)
+                {
+                    ProcessRequest(listenerContext);
+                }
+                else
+                {
+                    listenerContext.Response.StatusCode = 400;
+                    listenerContext.Response.Close();
+                }
+            }
         }          
         
         private async void ProcessRequest(HttpListenerContext context)
@@ -48,16 +59,26 @@ namespace HTTPServer
             }
 
             WebSocket webSocket = webSocketContext.WebSocket;
+            if (clients.Contains(webSocket) == false)
+                clients.Add(webSocket);
             try
             {
-                byte[] receiveBuffer = new byte[1024];
+                byte[] buffer = new byte[1024];
                 while (webSocket.State == WebSocketState.Open)
                 {
-                    WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(receiveBuffer), CancellationToken.None);
+                    WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                     if (receiveResult.MessageType == WebSocketMessageType.Close)
+                    {
                         await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
+                    }
                     else
-                        await webSocket.SendAsync(new ArraySegment<byte>(receiveBuffer, 0, receiveResult.Count), WebSocketMessageType.Binary, receiveResult.EndOfMessage, CancellationToken.None);
+                    {
+                        foreach (WebSocket socket in clients)
+                        {
+                            await socket.SendAsync(new ArraySegment<byte>(buffer, 0, receiveResult.Count),
+                                WebSocketMessageType.Binary, receiveResult.EndOfMessage, CancellationToken.None);
+                        }
+                    }
                 }
             }
             catch (Exception e)
