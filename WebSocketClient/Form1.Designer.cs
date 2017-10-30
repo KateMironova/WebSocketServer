@@ -28,19 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.chatBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.txtSend = new System.Windows.Forms.TextBox();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBox1
+            // chatBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 13);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(259, 121);
-            this.listBox1.TabIndex = 0;
+            this.chatBox.FormattingEnabled = true;
+            this.chatBox.Location = new System.Drawing.Point(13, 13);
+            this.chatBox.Name = "chatBox";
+            this.chatBox.Size = new System.Drawing.Size(259, 121);
+            this.chatBox.TabIndex = 0;
             // 
             // label1
             // 
@@ -51,34 +52,45 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Your message:";
             // 
-            // textBox1
+            // txtSend
             // 
-            this.textBox1.Location = new System.Drawing.Point(16, 178);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(256, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtSend.Location = new System.Drawing.Point(16, 178);
+            this.txtSend.Name = "txtSend";
+            this.txtSend.Size = new System.Drawing.Size(256, 20);
+            this.txtSend.TabIndex = 2;
             // 
-            // button1
+            // btnSend
             // 
-            this.button1.Location = new System.Drawing.Point(106, 205);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Send";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSend.Location = new System.Drawing.Point(150, 204);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(75, 23);
+            this.btnSend.TabIndex = 3;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Location = new System.Drawing.Point(33, 203);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(75, 23);
+            this.btnConnect.TabIndex = 4;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnConnect);
+            this.Controls.Add(this.btnSend);
+            this.Controls.Add(this.txtSend);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.chatBox);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Chat";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,10 +98,11 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox chatBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtSend;
+        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Button btnConnect;
     }
 }
 
